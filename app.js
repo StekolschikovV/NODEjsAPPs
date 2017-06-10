@@ -8,9 +8,7 @@ var express = require('express'),
     path = require('path'),
     sassMiddleware = require('node-sass-middleware'),
     fs = require('fs'),
-    db_chat = new sqlite3.Database('./chat/history.db'),
-    fs = require('fs'),
-    path = require('path');
+    db_chat = new sqlite3.Database('./chat/history.db');
 
 function getDirectories (srcpath) {
   return fs.readdirSync(srcpath)

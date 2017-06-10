@@ -1,0 +1,35 @@
+{
+  "name": "node-apps",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "connect": "^3.6.2",
+    "jade": "^1.11.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/StekolschikovV/NODEjsAPPs.git"
+  },
+  "dependencies": {
+    "express": "latest",
+    "sqlite3": "latest",
+    "http": "latest",
+    "socket.io": "latest",
+    "iconv-lite": "latest",
+    "path": "latest",
+    "node-sass-middleware": "latest",
+    "jade": "latest",
+    "fs": "latest"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/StekolschikovV/NODEjsAPPs/issues"
+  },
+  "homepage": "https://github.com/StekolschikovV/NODEjsAPPs#readme"
+}
