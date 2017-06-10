@@ -52,6 +52,8 @@ module.exports = function(io, db) {
             if (msg == '888' || msg == '8888') {
                 addMesToDB(getDateTime() + ' <span class="name">Вошел пользователь: ' + name + '</span>');
                 loadLast10();
+            } else {
+              io.emit('new message show', false);
             }
         });
         socket.on('loadAll', function (msg) { loadAll(); });

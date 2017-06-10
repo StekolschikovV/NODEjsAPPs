@@ -29,10 +29,13 @@ html
                 let pass = prompt("Пароль: ");
                 socket.emit('login', pass);
                 socket.on('new message show', function (msg) {
-                    var div = document.createElement('div');
+                    let div = document.createElement('div');
                     div.innerHTML = msg;
                     document.getElementById('mes-container').appendChild(div);
                     scroll();
+                    if(msg == false)
+                      while(document.body.childNodes.length != 0) 
+                        document.body.removeChild(document.body.childNodes[0])
                 });
                 scroll()
             }
