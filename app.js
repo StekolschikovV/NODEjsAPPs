@@ -8,6 +8,9 @@ var express = require('express'),
     path = require('path'),
     sassMiddleware = require('node-sass-middleware'),
     fs = require('fs'),
+    phantom = require('phantom'),
+    webshot = require('webshot'),
+    node_phantom = require('node-phantom'),
     db_chat = new sqlite3.Database('./chat/history.db');
 
 function getDirectories (srcpath) {
@@ -29,6 +32,10 @@ app.use(express.static('tpl'));
 
 
 app.use('/chat', require("./chat/index")(io, db_chat));
+app.use('/p', require("./screenshot/index")(io));
+
+
+
 
 // DEV
 fs.watch('tpl', {encoding: 'buffer'}, (eventType, filename) => { io.emit('reload'); });

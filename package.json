@@ -21,6 +21,12 @@
     "path": "latest",
     "node-sass-middleware": "latest",
     "jade": "latest",
+    "phantom": "latest",
+    "node-phantom": "latest",
+    "webpage": "latest",
+    "node-cmd": "latest",
+    "bluebird": "latest",
+    "webshot": "latest",
     "fs": "latest"
   },
   "author": "",
