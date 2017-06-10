@@ -7,7 +7,7 @@ module.exports = function(io, db) {
 	      sqlite3 = require('sqlite3');
 
 
-    router.get("/", function (req, res) { res.render(__dirname + '/tpl/page'); });
+    router.get("/", function (req, res) { res.render('../tpl/page'); });
 
 
     // DOP FUNC

@@ -8,26 +8,25 @@ var express = require('express'),
     path = require('path'),
     sassMiddleware = require('node-sass-middleware'),
     fs = require('fs'),
-    db = new sqlite3.Database('history.db');
+    db_chat = new sqlite3.Database('./chat/history.db');
 
 
   // VIEWS SETTINGS
-app.set('views engine', __dirname + '/chat/tpl');
 app.set('view engine', 'jade');
 app.use(sassMiddleware({
-    src: path.join(__dirname, '/chat/tpl'),
-    dest: path.join(__dirname, '/chat/tpl'),
+    src: path.join('tpl'),
+    dest: path.join('tpl'),
     debug: true,
     indentedSyntax: true,
     outputStyle: 'compressed'
 }));
-app.use(express.static(__dirname + '/chat/tpl'));
+app.use(express.static('tpl'));
 
 
-app.use('/chat', require("./chat/index")(io, db));
+app.use('/chat', require("./chat/index")(io, db_chat));
 
 // DEV
-fs.watch('./chat/tpl', {encoding: 'buffer'}, (eventType, filename) => { io.emit('reload'); });
+fs.watch('tpl', {encoding: 'buffer'}, (eventType, filename) => { io.emit('reload'); });
 
 
 http.listen(3000);
