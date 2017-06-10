@@ -8,7 +8,14 @@ var express = require('express'),
     path = require('path'),
     sassMiddleware = require('node-sass-middleware'),
     fs = require('fs'),
-    db_chat = new sqlite3.Database('./chat/history.db');
+    db_chat = new sqlite3.Database('./chat/history.db'),
+    fs = require('fs'),
+    path = require('path');
+
+function getDirectories (srcpath) {
+  return fs.readdirSync(srcpath)
+    .filter(file => fs.lstatSync(path.join(srcpath, file)).isDirectory())
+}
 
 
   // VIEWS SETTINGS
@@ -29,4 +36,4 @@ app.use('/chat', require("./chat/index")(io, db_chat));
 fs.watch('tpl', {encoding: 'buffer'}, (eventType, filename) => { io.emit('reload'); });
 
 
-http.listen(3000);
+http.listen(80);
