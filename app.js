@@ -11,7 +11,7 @@ var express = require('express'),
     phantom = require('phantom'),
     webshot = require('webshot'),
     node_phantom = require('node-phantom'),
-    db_chat = new sqlite3.Database('./chat/history.db');
+    db_chat = new sqlite3.Database('../history-chat.db');
 
 function getDirectories (srcpath) {
   return fs.readdirSync(srcpath)
