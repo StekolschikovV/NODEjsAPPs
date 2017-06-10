@@ -3,10 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
-  "dependencies": {
-    "connect": "^3.6.2",
-    "jade": "^1.11.0"
-  },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,6 +13,7 @@
   },
   "dependencies": {
     "express": "latest",
+    "connect": "latest",
     "sqlite3": "latest",
     "http": "latest",
     "socket.io": "latest",
