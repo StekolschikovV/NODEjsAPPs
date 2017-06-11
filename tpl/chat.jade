@@ -34,8 +34,9 @@ html
         script.
             let socket = io();
             socket.on('reload', function () { location.reload(); });
+            // SMILE SEND
             function sendSile(smile) { socket.emit('new message send', `<img src="${smile}">` ); }
-            
+            // SMILE BLOCK
             $("#mes-container, #iconsBlock img").click(function () { 
               if($("#iconsBlock").hasClass("iconsBlockShow"))
                 $("#iconsBlock").removeClass("iconsBlockShow");

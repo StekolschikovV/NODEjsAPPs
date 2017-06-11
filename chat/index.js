@@ -12,6 +12,7 @@ module.exports = function(io, db) {
 
     // DOP FUNC
     function addMesToDB(txt) { var stmt = db.prepare("INSERT INTO message (txt) VALUES (?)"); stmt.run(txt); stmt.finalize(); }
+    // LAST 10 MES
     function loadLast10() {
 		    let array = [];
         db.each("SELECT * FROM message order by ID DESC limit 10", function (err, row) {
@@ -21,9 +22,9 @@ module.exports = function(io, db) {
         });
     }
     function loadLast10Show(e) {
-      for (var i = 10; i > 0; i--)
-        io.emit('new message show', e[i]);
+      for (var i = 10; i > -1; i--){ io.emit('new message show', e[i]); }
     }
+    // ALL MESS
     function loadAll() { db.each("SELECT * FROM message", function (err, row) { io.emit('new message show', row.txt); }); }
     function getDateTime() {
         let date = new Date(),
@@ -53,7 +54,7 @@ module.exports = function(io, db) {
             if (msg == '888') name = 'Оксана';
             else if (msg == '8888') name = 'Виталий';
             if (msg == '888' || msg == '8888') {
-                addMesToDB(getDateTime() + ' <span class="name">Вошел пользователь: ' + name + '</span>');
+                // addMesToDB(getDateTime() + ' <span class="name">Вошел пользователь: ' + name + '</span>');
                 loadLast10();
             } else {
               io.emit('new message show', false);
@@ -69,8 +70,8 @@ module.exports = function(io, db) {
             addMesToDB(getDateTime() + ' <span class="name">' + name + ':</span> <span class="msg">' + msg + '</span>');
         });
         socket.on('disconnect', function () {
-            io.emit('new message show', getDateTime() + '  <span class="name">Вышел пользователь: ' + name + '</span>');
-            addMesToDB(getDateTime() + '  <span class="name">Вышел пользователь: ' + name + '</span>');
+            // io.emit('new message show', getDateTime() + '  <span class="name">Вышел пользователь: ' + name + '</span>');
+            // addMesToDB(getDateTime() + '  <span class="name">Вышел пользователь: ' + name + '</span>');
         });
     });
 
