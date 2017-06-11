@@ -1,0 +1,76 @@
+doctype
+html
+    head
+        title Sceen url
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        link(href="../style-screen.css", rel='stylesheet')
+        script(src='https://code.jquery.com/jquery-2.2.4.min.js', integrity='sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=', crossorigin='anonymous')
+        link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css')
+        link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css')
+        script(src='//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js')
+
+    body
+      .container
+          .row
+              form(onsubmit='getScreen();return false')
+                  .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                      .form-group
+                          label(for='url') Site url:
+                          input#url.form-control(required, type='text', placeholder='google.com')
+                          label(for='windowSizeWidth') Window size width:
+                          input#windowSizeWidth.form-control(required, type='text', placeholder='1024', value='1024')
+                          label(for='windowSizeHeight') Window size height:
+                          input#windowSizeHeight.form-control(required, type='text', placeholder='768', value='768')
+                          label(for='shotOffsetLeft') Screen offset left:
+                          input#shotOffsetLeft.form-control(required, type='text', placeholder='0', value='0')
+                          label(for='shotOffsetRight') Screen offset right:
+                          input#shotOffsetRight.form-control(required, type='text', placeholder='0', value='0')
+                          label(for='streamType') Stream type:
+                          select#streamType.form-control
+                            option(value="png") png
+                            option(value="jpg") jpg
+                            option(value="jpeg") jpeg
+                  .col-xs-12.col-sm-6.col-md-6.col-lg-6
+                      .form-group
+                          label(for='name') Name screen:
+                          input#name.form-control(required, type='text', placeholder='google')
+                          label(for='userAgent') User agent:
+                          select#userAgent.form-control
+                              option(value="Chrome") Chrome
+                              option(value="Mozilla") Mozilla
+                              option(value="Safari") Safari
+                              option(value="Opera") Opera
+                              option(value="AndroidWebkitBrowser") Android Webkit Browser
+                              option(value="BlackBerry") BlackBerry
+                              option(value="OperaMini") Opera Mini
+                              option(value="S6") Samsung Galaxy S6
+                              option(value="iPhone") iPhone
+                          label(for='shotOffsetTop') Screen offset top:
+                          input#shotOffsetTop.form-control(required, type='text', placeholder='0', value='0')
+                          label(for='shotOffsetBottom') Screen offset bottom:
+                          input#shotOffsetBottom.form-control(required, type='text', placeholder='0', value='0')
+                          label(for='renderDelay') Whait site:
+                          input#renderDelay.form-control(required, type='text', placeholder='0', value='0')
+                          label(for='quality') Quality:
+                          input#quality.form-control(required, type='text', placeholder='75', value='75')
+                          label(for='type') Type:
+                          select#type.form-control
+                              option(value="page") Img on page
+                              option(value="json") Img link on json
+
+                  .col-xs-12.col-sm-12.col-md-12.col-lg-12.text-right
+                        button.btn.btn-default(type='submit') Get screen
+
+      script(src='/socket.io/socket.io.js')
+      script.
+          var socket = io();
+          socket.on('reload', function () { location.reload(); });
+          function getScreen() { window.open(`/screen/${$('#url').val()}/${$('#name').val()}/${$('#windowSizeWidth').val()}/${$('#windowSizeHeight').val()}/${$('#userAgent').val()}/${$('#streamType').val()}/${$('#shotOffsetLeft').val()}/${$('#shotOffsetRight').val()}/${$('#shotOffsetTop').val()}/${$('#shotOffsetBottom').val()}/${$('#quality').val()}/${$('#renderDelay').val()}/${$('#type').val()}`); }
+
+
+
+
+
+
+
