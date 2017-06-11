@@ -7,7 +7,7 @@ module.exports = function(io) {
     router.get("/:url/:name/:mob", function (req, res) {
       let url = req.params.url,
           mob = req.params.mob,
-          name = req.params.name
+          name = req.params.name;
           options = '';
           if(mob == "on") {
             options = {
@@ -35,5 +35,6 @@ module.exports = function(io) {
         s.pipe(res);
       });
     });
+    router.get("/", function (req, res) { res.render('../tpl/screen'); });
     return router;
 }

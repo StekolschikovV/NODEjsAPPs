@@ -13,14 +13,13 @@ var express = require('express'),
     node_phantom = require('node-phantom'),
     db_chat = new sqlite3.Database('../history-chat.db');
 
-function getDirectories (srcpath) {
-  return fs.readdirSync(srcpath)
-    .filter(file => fs.lstatSync(path.join(srcpath, file)).isDirectory())
-}
+
 
 
   // VIEWS SETTINGS
-app.set('view engine', 'jade');
+app.set('views', __dirname + '/tpl');
+app.engine('jade', require('jade').renderFile);
+app.set('view engine', 'jade');		  app.set('view engine', 'jade');
 app.use(sassMiddleware({
     src: path.join('tpl'),
     dest: path.join('tpl'),
@@ -32,13 +31,13 @@ app.use( express.static('tpl'));
 
 
 app.use('/chat', require("./chat/index")(io, db_chat));
-app.use('/p', require("./screenshot/index")(io));
+app.use('/screen', require("./screenshot/index")(io));
 
 
 
 
 // DEV
-fs.watch('tpl', {encoding: 'buffer'}, (eventType, filename) => { io.emit('reload'); });
+fs.watch('tpl', {encoding: 'buffer'}, function (eventType, filename) { io.emit('reload'); });
 
 
 http.listen(80);
