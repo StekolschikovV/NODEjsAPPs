@@ -72,7 +72,7 @@ html
                 let classAdd = false;
                 let timeMes = 0;
                 mesText.oninput = function() { socket.emit('mesText.oninput', pass); };
-                socket.on('mesText.oninput.show', function () { timeMes += 3; });
+                socket.on('mesText.oninput.show', function () { timeMes += 1; });
                 let e = document.getElementById("writeMes");
                 setInterval(function () {
                   if(timeMes > 0){

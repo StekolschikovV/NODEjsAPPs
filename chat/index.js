@@ -14,14 +14,14 @@ module.exports = function(io, db) {
     // LAST 10 MES
     function loadLast10(socket) {
 		    let array = [];
-        db.each("SELECT * FROM message order by ID DESC limit 10", function (err, row) {
+        db.each("SELECT * FROM message order by ID DESC limit 30", function (err, row) {
             array.push(row.txt);
-            if(array.length == 10)
+            if(array.length == 30)
               loadLast10Show(array, socket)
         });
     }
     function loadLast10Show(e, socket) {
-      for (var i = 10; i > -1; i--){ socket.emit('new message show', e[i]); }
+      for (var i = 30; i > -1; i--){ socket.emit('new message show', e[i]); }
     }
     // ALL MESS
     function loadAll(socket) { db.each("SELECT * FROM message", function (err, row) { socket.emit('new message show', row.txt); }); }
@@ -43,9 +43,10 @@ module.exports = function(io, db) {
     // DOP FUNC ----------------------------------------------------------------
 
     // EMIT
-    let name = '';
-    let pass = '';
+
     io.on('connection', function (socket) {
+        let name = '';
+        let pass = '';
         io.sockets.on('connection', function (client) {});
         socket.on('login', function (msg) {
             pass = msg;

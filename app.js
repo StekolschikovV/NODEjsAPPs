@@ -32,7 +32,7 @@ app.use("/screen", express.static(__dirname + "/screenshot/sreen"));
 
 
 app.use('/chat', require("./chat/index")(io, db_chat));
-app.use('/screen', require("./screenshot/index")(io));
+// app.use('/screen', require("./screenshot/index")(io));
 
 
 
