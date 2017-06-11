@@ -19,7 +19,7 @@ var express = require('express'),
   // VIEWS SETTINGS
 app.set('views', __dirname + '/tpl');
 app.engine('jade', require('jade').renderFile);
-app.set('view engine', 'jade');		  app.set('view engine', 'jade');
+app.set('view engine', 'jade');
 app.use(sassMiddleware({
     src: path.join('tpl'),
     dest: path.join('tpl'),
@@ -28,6 +28,7 @@ app.use(sassMiddleware({
     outputStyle: 'compressed'
 }));
 app.use( express.static('tpl'));
+app.use("/screen", express.static(__dirname + "/screenshot/sreen"));
 
 
 app.use('/chat', require("./chat/index")(io, db_chat));
