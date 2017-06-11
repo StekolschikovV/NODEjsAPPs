@@ -5,16 +5,43 @@ html
         meta(charset='utf-8')
         meta(name='viewport', content='width=device-width, initial-scale=1')
         link(href="./style-chat.css", rel='stylesheet')
+        script(src='https://code.jquery.com/jquery-2.2.4.min.js', integrity='sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=', crossorigin='anonymous')
     body
-        #loadAll(onclick="loadAll()") Загрузить историю сообещений
+        #loadAll(onclick="loadAll()") Загрузить историю сообещений 
         #mes-container
         form(onSubmit="return clicksend()" )
+            span#writeMes Печатает сообщение...
+            img(src="./icon/happy.png")#showIcons
+            span#iconsBlock
+              img(src="./icon/happy.png", onclick="sendSile('./icon/happy.png')")
+              img(src="./icon/sad.png", onclick="sendSile('./icon/sad.png')")
+              img(src="./icon/surprised.png", onclick="sendSile('./icon/surprised.png')")
+              img(src="./icon/confused.png", onclick="sendSile('./icon/confused.png')")
+              img(src="./icon/wink.png", onclick="sendSile('./icon/wink.png')")
+              img(src="./icon/devil.png", onclick="sendSile('./icon/devil.png')")
+              img(src="./icon/nervous.png", onclick="sendSile('./icon/nervous.png')")
+              img(src="./icon/tongue.png", onclick="sendSile('./icon/tongue.png')")
+              img(src="./icon/kiss.png", onclick="sendSile('./icon/kiss.png')")
+              img(src="./icon/shouting.png", onclick="sendSile('./icon/shouting.png')")
+              img(src="./icon/crying.png", onclick="sendSile('./icon/crying.png')")
+              img(src="./icon/calm.png", onclick="sendSile('./icon/calm.png')")
+              img(src="./icon/cool.png", onclick="sendSile('./icon/cool.png')")
+              img(src="./icon/muted.png", onclick="sendSile('./icon/muted.png')")
+              img(src="./icon/sick.png", onclick="sendSile('./icon/sick.png')")
             input(type='text', id='mesText', placeholder='Введи сообщение...')
             input(type='submit', value='send')
         script(src='/socket.io/socket.io.js')
         script.
             let socket = io();
             socket.on('reload', function () { location.reload(); });
+            function sendSile(smile) { socket.emit('new message send', `<img src="${smile}">` ); }
+            
+            $("#mes-container, #iconsBlock img").click(function () { 
+              if($("#iconsBlock").hasClass("iconsBlockShow"))
+                $("#iconsBlock").removeClass("iconsBlockShow");
+            });
+            $("#showIcons").click(function () { $("#iconsBlock").addClass("iconsBlockShow"); });
+            
             function clicksend() {
                 let inp = document.getElementById("mesText").value;
                 if(inp != '')
@@ -25,6 +52,8 @@ html
             function loadAll() {
                 document.getElementById("mes-container").innerHTML = '';
                 socket.emit('loadAll');
+                let elem = document.getElementById("loadAll");
+                elem.parentNode.removeChild(elem);
             }
             window.onload = function () {
                 let pass = prompt("Пароль: ");
@@ -38,7 +67,26 @@ html
                       while(document.body.childNodes.length != 0) 
                         document.body.removeChild(document.body.childNodes[0])
                 });
-                scroll()
+                scroll();
+                let classAdd = false;
+                let timeMes = 0;
+                mesText.oninput = function() { socket.emit('mesText.oninput', pass); };
+                socket.on('mesText.oninput.show', function () { timeMes += 3; });
+                let e = document.getElementById("writeMes");
+                setInterval(function () {
+                  if(timeMes > 0){
+                    if(classAdd == false){
+                      e.className += " writeMesShow";
+                      classAdd = true;
+                    }
+                    timeMes--;
+                  } else {
+                    e.classList.remove("writeMesShow");
+                    classAdd = false;
+                  }
+                },1000);
+                
+
             }
             function scroll() {
                 let div = document.getElementById('mes-container');

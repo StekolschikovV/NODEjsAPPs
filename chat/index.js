@@ -38,15 +38,18 @@ module.exports = function(io, db) {
         month = (month < 10 ? "0" : "") + month;
         let day = date.getDate();
         day = (day < 10 ? "0" : "") + day;
-        return year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec;
+        // return year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec;
+        return hour + ":" + min + ":" + sec;
     }
 
 
     // EMIT
-    var name = '';
+    let name = '';
+    let pass = '';
     io.on('connection', function (socket) {
         io.sockets.on('connection', function (client) {});
         socket.on('login', function (msg) {
+            pass = msg;
             if (msg == '888') name = 'Оксана';
             else if (msg == '8888') name = 'Виталий';
             if (msg == '888' || msg == '8888') {
@@ -57,6 +60,10 @@ module.exports = function(io, db) {
             }
         });
         socket.on('loadAll', function (msg) { loadAll(); });
+        socket.on('mesText.oninput', function (msg) {
+          socket.broadcast.emit('mesText.oninput.show')
+
+          });
         socket.on('new message send', function (msg) {
             io.emit('new message show', getDateTime() + ' <span class="name">' + name + ':</span> <span class="msg">' + msg + '</span>');
             addMesToDB(getDateTime() + ' <span class="name">' + name + ':</span> <span class="msg">' + msg + '</span>');

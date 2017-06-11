@@ -24,11 +24,11 @@ app.set('view engine', 'jade');
 app.use(sassMiddleware({
     src: path.join('tpl'),
     dest: path.join('tpl'),
-    debug: true,
+    debug: false,
     indentedSyntax: true,
     outputStyle: 'compressed'
 }));
-app.use(express.static('tpl'));
+app.use( express.static('tpl'));
 
 
 app.use('/chat', require("./chat/index")(io, db_chat));
